@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wellcome</title>
+    <style>
+        body{
+            background-color: rgb(0, 255, 170);
+            border-style: solid;
+            border-color: rgb(71, 145, 255);
+            text-align: center;
+        }
+
+        form{
+            background-color: rgb(165, 147, 42);
+        }
+        input{
+            text-align: center;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h4 style="text-align: left; color: red;">Lets Predict The Loan Eligiblity:</h4>
+    <form action="{{url_for('predict')}}" method="POST">
+        ApplicantIncome<br>
+        <input type="number" name="ApplicantIncome" step="any", placeholder="Put-Income"><br>
+        Credit_History<br>
+        <input type="number" name="Credit_History" step="any", placeholder="0 or 1"><br>
+        Gender <br>
+        <input type="number" name="Gender_Male" step="any", placeholder="Male=1/Female=0"><br>
+        Married <br>
+        <input type="number" name="Married_Yes" step="any", placeholder="Yes=1/No=0"><br>
+        Education(Graduate/NotGraduate) <br>
+        <input type="number" name="Education_Not Graduate" step="any", placeholder="Graduate: Yes=1/No=0"> <br>
+        Self_Employed <br>
+        <input type="number" name="Self_Employed_Yes" step="any" placeholder="Yes=1/No=0"> <br>
+        Proparty_Area <br>
+        
+        <select name="Property_Area">
+            <option value="none"> --Select_Area-- </option>
+            <option value="Property_Area_Semiurban">SemiUrbanArea</option>
+            <option value="Property_Area_Urban">UrbanArea</option>
+        </select> <br>
+        <button type="submit" style="color: chocolate;">predict</button>
+    </form>
+    <div>
+        <div style="color: rgb(220, 20, 20);">
+            {{prediction_text}}
+        </div>
+    </div>
+</body>
+</html>

@@ -13,19 +13,22 @@ def home():
 @app.route('/predict', methods = ['POST'])
 def predict():
 
-    temp_array=[]
+    temp_array= list()
 
-    Property_area = request.form["Property_Area"]
-    if Property_area == 'Property_Area_Semiurban':
-        temp_array = temp_array + [1,0]
-    elif Property_area == "Property_Area_Urban":
-        temp_array = temp_array + [0,1]
+    if request.method == 'POST':
 
-    features = [float(x) for x in request.form.values()]
-    final_features = features + temp_array
-    data = np.array([final_features])
+        Property_area = request.form["Property_Area"]
+        if Property_area == 'Property_Area_Semiurban':
+            temp_array = temp_array + [1,0]
+        elif Property_area == "Property_Area_Urban":
+            temp_array = temp_array + [0,1]
 
-    my_prediction = int(model.predict()[0])
-    return render_template('index.html', prediction_text='You Are Eligible: {}'.format(my_prediction))
+        features = [float(x) for x in request.form.values()]
+        final_features = features + temp_array
+        data = np.array([final_features])
 
-    
+        my_prediction = int(model.predict(data)[0])
+        return render_template('index.html', prediction_text='You Are Eligible: {}'.format(my_prediction))
+
+if __name__ == '__main__':
+    app.run(debug=True)       
